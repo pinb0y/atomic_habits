@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from app_habits.models import Habit
 from app_habits.paginators import HabitPaginator
-from app_habits.serializers import HabitSerializer
+from app_habits.serializers import HabitSerializer, HabitDetailSerializer
 from app_user.models import User
 from app_user.permissions import IsOwner
 
@@ -16,7 +16,7 @@ class HabitCreateAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         if isinstance(self.request.user, User):
-            serializer.save(owner=self.request.user)
+            serializer.save(user=self.request.user)
         serializer.save()
 
 
@@ -26,7 +26,7 @@ class HabitListAPIView(generics.ListAPIView):
     serializer_class = HabitSerializer
     pagination_class = HabitPaginator
     queryset = Habit.objects.all()
-    permission_classes = (IsOwner, IsAuthenticated)
+    permission_classes = (IsOwner, IsAuthenticated,)
 
 
 class HabitPublicListView(generics.ListAPIView):

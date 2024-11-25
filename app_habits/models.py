@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 
 from app_user.models import User
@@ -31,7 +32,9 @@ class Habit(models.Model):
         "Действие", max_length=500, help_text="Введите действие привычки"
     )
     is_pleasant = models.BooleanField(
-        "Признак приятной привычки", help_text="укажите является ли привычка приятной"
+        "Признак приятной привычки",
+        default=False,
+        help_text="укажите является ли привычка приятной"
     )
     linked_habit = models.ForeignKey(
         "self",
@@ -47,12 +50,22 @@ class Habit(models.Model):
         choices=PERIODS,
         help_text="Выберете периодичность",
     )
+    reward = models.CharField(
+        "Вознаграждение",
+        max_length=500,
+        null=True,
+        blank=True,
+        help_text="Укажите вознаграждение",
+    )
     lead_time = models.PositiveSmallIntegerField(
         "Примерное время выполнения",
+        validators=[MaxValueValidator(120)],
         help_text="Укажите примерное время выполнения в секундах",
     )
     is_public = models.BooleanField(
-        "Статус публичности", help_text="Укажите статус публичности"
+        "Статус публичности",
+        default=False,
+        help_text="Укажите статус публичности"
     )
     created_at = models.DateTimeField("Дата и время создания", auto_now_add=True)
     updated_at = models.DateTimeField("Дата и время обновления", auto_now=True)
