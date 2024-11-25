@@ -34,7 +34,7 @@ class Habit(models.Model):
     is_pleasant = models.BooleanField(
         "Признак приятной привычки",
         default=False,
-        help_text="укажите является ли привычка приятной"
+        help_text="укажите является ли привычка приятной",
     )
     linked_habit = models.ForeignKey(
         "self",
@@ -63,9 +63,7 @@ class Habit(models.Model):
         help_text="Укажите примерное время выполнения в секундах",
     )
     is_public = models.BooleanField(
-        "Статус публичности",
-        default=False,
-        help_text="Укажите статус публичности"
+        "Статус публичности", default=False, help_text="Укажите статус публичности"
     )
     created_at = models.DateTimeField("Дата и время создания", auto_now_add=True)
     updated_at = models.DateTimeField("Дата и время обновления", auto_now=True)

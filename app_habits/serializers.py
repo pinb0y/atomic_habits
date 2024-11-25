@@ -1,7 +1,11 @@
 from rest_framework import serializers
 
 from app_habits.models import Habit
-from app_habits.validators import validate_reward_or_pleasant_habit, validate_linked_habit, validate_pleasant_habit
+from app_habits.validators import (
+    validate_reward_or_pleasant_habit,
+    validate_linked_habit,
+    validate_pleasant_habit,
+)
 
 
 class HabitSerializer(serializers.ModelSerializer):
@@ -19,11 +23,20 @@ class HabitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Habit
-        fields = ("id", "user", "condition", "periodicity", "reward_or_linked_habit", "lead_time", "is_pleasant", "is_public", )
+        fields = (
+            "id",
+            "user",
+            "condition",
+            "periodicity",
+            "reward_or_linked_habit",
+            "lead_time",
+            "is_pleasant",
+            "is_public",
+        )
         validators = [
             validate_reward_or_pleasant_habit,
             validate_linked_habit,
-            validate_pleasant_habit
+            validate_pleasant_habit,
         ]
 
 
