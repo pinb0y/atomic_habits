@@ -8,8 +8,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ("email", "password", "telegram_id")
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
-

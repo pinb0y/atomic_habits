@@ -54,3 +54,13 @@ class Habit(models.Model):
     is_public = models.BooleanField(
         "Статус публичности", help_text="Укажите статус публичности"
     )
+    created_at = models.DateTimeField("Дата и время создания", auto_now_add=True)
+    updated_at = models.DateTimeField("Дата и время обновления", auto_now=True)
+
+    class Meta:
+        verbose_name = "Привычка"
+        verbose_name_plural = "Привычки"
+        ordering = ("created_at",)
+
+    def __str__(self):
+        return f"Я буду {self.action} {self.time} {self.place}"

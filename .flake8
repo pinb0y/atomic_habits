@@ -1,0 +1,4 @@
+[flake8]
+exclude = env, migrations, manage.py
+max-line-length = 119
+ignore = CCE001, A003, VNE003, T003, PT009
