@@ -8,7 +8,7 @@ from app_habits.validators import (
 )
 
 
-class HabitSerializer(serializers.ModelSerializer):
+class HabitListSerializer(serializers.ModelSerializer):
     condition = serializers.SerializerMethodField(read_only=True)
     reward_or_linked_habit = serializers.SerializerMethodField(read_only=True)
 
@@ -33,14 +33,14 @@ class HabitSerializer(serializers.ModelSerializer):
             "is_pleasant",
             "is_public",
         )
+
+
+class HabitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Habit
+        exclude = ("created_at", "updated_at")
         validators = [
             validate_reward_or_pleasant_habit,
             validate_linked_habit,
             validate_pleasant_habit,
         ]
-
-
-class HabitDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Habit
-        fields = "__all__"

@@ -1,19 +1,10 @@
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from app_user.models import User
 
 
 class Habit(models.Model):
-    PERIODS = (
-        ("1", "Каждый день"),
-        ("2", "Через день"),
-        ("3", "Через два дня"),
-        ("4", "Через три дня"),
-        ("5", "Через четыре дня"),
-        ("6", "Через пять дней"),
-        ("7", "Раз в неделю"),
-    )
     user = models.ForeignKey(
         User,
         verbose_name="Пользователь",
@@ -44,10 +35,10 @@ class Habit(models.Model):
         blank=True,
         help_text="Укажите связанную привычку",
     )
-    periodicity = models.CharField(
+    periodicity = models.PositiveSmallIntegerField(
         "Периодичность",
-        max_length=10,
-        choices=PERIODS,
+        default=1,
+        validators=[MinValueValidator(1), MaxValueValidator(7)],
         help_text="Выберете периодичность",
     )
     reward = models.CharField(
@@ -64,6 +55,12 @@ class Habit(models.Model):
     )
     is_public = models.BooleanField(
         "Статус публичности", default=False, help_text="Укажите статус публичности"
+    )
+    next_send_date = models.DateTimeField(
+        "Дата следующей отправки напоминания",
+        auto_now=False,
+        null=True,
+        blank=True,
     )
     created_at = models.DateTimeField("Дата и время создания", auto_now_add=True)
     updated_at = models.DateTimeField("Дата и время обновления", auto_now=True)
