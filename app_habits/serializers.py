@@ -9,7 +9,11 @@ from app_habits.validators import (
 
 
 class HabitListSerializer(serializers.ModelSerializer):
+    """Сериалайзер для списка привычек"""
+
+    # Поле условия в понятном виде.
     condition = serializers.SerializerMethodField(read_only=True)
+    # Поле для отображения или награды или связанной приятной привычки
     reward_or_linked_habit = serializers.SerializerMethodField(read_only=True)
 
     def get_condition(self, obj):
@@ -36,6 +40,8 @@ class HabitListSerializer(serializers.ModelSerializer):
 
 
 class HabitSerializer(serializers.ModelSerializer):
+    """Сериалайзер для детальной привычки со всеми полями"""
+
     class Meta:
         model = Habit
         exclude = ("created_at", "updated_at")

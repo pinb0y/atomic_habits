@@ -9,7 +9,7 @@ from app_user.permissions import IsOwner
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
-    """API class for habit creation"""
+    """Апи класс для создания привычки"""
 
     serializer_class = HabitSerializer
     permission_classes = (IsAuthenticated,)
@@ -21,7 +21,7 @@ class HabitCreateAPIView(generics.CreateAPIView):
 
 
 class HabitListAPIView(generics.ListAPIView):
-    """API class shows list of habits"""
+    """Апи класс для отображения списка привычек"""
 
     serializer_class = HabitListSerializer
     pagination_class = HabitPaginator
@@ -33,6 +33,8 @@ class HabitListAPIView(generics.ListAPIView):
 
 
 class HabitPublicListView(generics.ListAPIView):
+    """Апи класс для отображения списка публичных привычек"""
+
     serializer_class = HabitListSerializer
     pagination_class = HabitPaginator
     queryset = Habit.objects.filter(is_public=True)
@@ -40,18 +42,24 @@ class HabitPublicListView(generics.ListAPIView):
 
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
+    """Апи класс для отображения одной привычки"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = (IsOwner, IsAuthenticated)
 
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
+    """Апи класс для редактирования привычки"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = (IsOwner, IsAuthenticated)
 
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
+    """Апи класс для удаления привычки"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = (IsOwner, IsAuthenticated)
